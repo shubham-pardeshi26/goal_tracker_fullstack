@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     "api",
     "rest_framework",
     "drf_spectacular",
-    
 ]
 
 MIDDLEWARE = [
@@ -57,9 +56,10 @@ MIDDLEWARE = [
 REST_FRAMEWORK = {
     # other DRF settings here
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-    "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
-    ],
+    # "DEFAULT_PERMISSION_CLASSES": [
+    #     "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
+    # ],
+    "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
 }
 
 ROOT_URLCONF = "goal_tracker.urls"
@@ -80,6 +80,15 @@ TEMPLATES = [
     },
 ]
 
+# settings.py
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "your_email@gmail.com"  # Your Gmail email address
+EMAIL_HOST_PASSWORD = "your_password"  # Your Gmail password or an app password
+
+
 SPECTACULAR_SETTINGS = {
     "TITLE": "GOAL-TRACKER API",
     "DESCRIPTION": "This is a goal-tracker official API documentation.",
@@ -95,11 +104,14 @@ WSGI_APPLICATION = "goal_tracker.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "goal_tracker_app",
+        "USER": "root",
+        "PASSWORD": "Admin@1234",
+        "HOST": "localhost",  # or the hostname of your MySQL server
+        "PORT": "3306",  # the default MySQL port
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
